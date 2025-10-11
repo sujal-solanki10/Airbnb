@@ -32,7 +32,7 @@
         ></textarea>
         <div class="invalid-feedback">please enter a short description</div>
       </div>
-      
+
       <div class="mb-3">
         <label for="image" class="form-label">Upload Listng Image</label>
         <input
@@ -43,6 +43,25 @@
           required
         />
       </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category for listing</label>
+        <select name="listing[category]" class="form-control" required>
+          <option value="" disabled selected>Select a Category</option>
+          <!-- Dynamic options will be inserted here from categoryLabels.js -->
+          <option value="Trending">Trending</option>
+          <option value="Rooms">Rooms</option>
+          <option value="Iconic_Cities">Iconic Cities</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Castles">Castles</option>
+          <option value="Amazing_Pools">Amazing Pools</option>
+          <option value="Camping">Camping</option>
+          <option value="Farms">Farms</option>
+          <option value="Arctic">Arctic</option>
+          <option value="Doms">Doms</option>
+          <option value="Boats">Boats</option>
+        </select>
+      </div>
+
       <div class="row">
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>

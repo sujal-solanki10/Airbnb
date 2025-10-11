@@ -3,108 +3,182 @@
 <!-- <h3>All listings</h3> -->
 
 <style>
+/* Basic styles for filters */
+#filters {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure the items stay in a single line */
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+}
+
+.filter {
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter p {
+  font-size: 0.8rem;
+}
+
+.filter a {
+  text-decoration: none;
+  color: black;
+  opacity: 0.8;
+}
+
+/* Tax info section */
+.tax-info {
+  display: none;
+  /* visibility: hidden;  for removing all*/
+}
+
+/* Tax toggle styles */
+.tax-toggle {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 2.5rem;
+  padding: 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* For small screens (≤ 768px), hide the filters and tax toggle */
+@media (max-width: 768px) {
   #filters {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: none; /* Hide the filter bar on small screens */
   }
+
+  .tax-toggle {
+    display: none; /* Hide the tax toggle on small screens */
+  }
+}
+
+/* For medium or larger screens (≥ 769px), show the filters in one line and show tax toggle */
+@media (min-width: 769px) {
+  #filters {
+    display: flex; /* Show filters on medium and larger screens */
+    flex-wrap: nowrap; /* Keep them in one line */
+  }
+
   .filter {
-    text-align: center;
-    margin-right: 2rem;
-    margin-top: 2rem;
-    opacity: 0.8;
+    width: auto; /* Filter items will have their normal width */
+    margin-bottom: 0; /* Remove bottom margin for horizontal layout */
   }
 
-  .filter:hover {
-    opacity: 1;
-    cursor: pointer;
+  .tax-toggle {
+    display: flex; /* Show the tax toggle on larger screens */
   }
-  .filter p {
-    font-size: 0.8rem;
-  }
+}
 
-  .tax-info{
-    display: none;
-    /* visibility: hidden;  for remove all*/ 
-  }
-
-  .tax-toggle{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 2.5rem;
-    padding: 1rem;
-    margin-left: 2rem;
-    display: flex;
-    align-items: center;
-  }
 </style>
 
-<div id="filters">
+<div id="filters" >
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-fire"> </i>
-    </div>
-    <p>Trending</p>
+    <a href="/listings/search?search=trending">
+      <div>
+        <i class="fa-solid fa-fire"></i>
+      </div>
+      <p>Trending</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-bed"></i>
-    </div>
-    <p>Rooms</p>
+    <a href="/listings/search?search=rooms">
+      <div>
+        <i class="fa-solid fa-bed"></i>
+      </div>
+      <p>Rooms</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-mountain-city"></i>
-    </div>
-    <p>Iconic Cities</p>
+    <a href="/listings/search?search=iconic_cities">
+      <div>
+        <i class="fa-solid fa-mountain-city"></i>
+      </div>
+      <p>Iconic Cities</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-mountain"></i>
-    </div>
-    <p>Mountains</p>
+    <a href="/listings/search?search=mountains">
+      <div>
+        <i class="fa-solid fa-mountain"></i>
+      </div>
+      <p>Mountains</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-brands fa-fort-awesome"></i>
-    </div>
-    <p>Castles</p>
+    <a href="/listings/search?search=castles">
+      <div>
+        <i class="fa-brands fa-fort-awesome"></i>
+      </div>
+      <p>Castles</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-person-swimming"></i>
-    </div>
-    <p>Amazing Pools</p>
+    <a href="/listings/search?search=amazing_pools">
+      <div>
+        <i class="fa-solid fa-person-swimming"></i>
+      </div>
+      <p>Amazing Pools</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-campground"></i>
-    </div>
-    <p>Camping</p>
+    <a href="/listings/search?search=camping">
+      <div>
+        <i class="fa-solid fa-campground"></i>
+      </div>
+      <p>Camping</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-cow"></i>
-    </div>
-    <p>Farms</p>
+    <a href="/listings/search?search=farm">
+      <div>
+        <i class="fa-solid fa-cow"></i>
+      </div>
+      <p>Farms</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-snowflake"></i>
-    </div>
-    <p>Arctic</p>
+    <a href="/listings/search?search=arctic">
+      <div>
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <p>Arctic</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-igloo"></i>
-    </div>
-    <p>Doms</p>
+<a href="/listings/search?search=doms">
+      <div>
+        <i class="fa-solid fa-igloo"></i>
+      </div>
+      <p>Doms</p>
+    </a>
   </div>
+
   <div class="filter">
-    <div>
-      <i class="fa-solid fa-sailboat"></i>
-    </div>
-    <p>Boats</p>
+    <a href="/listings/search?search=boats">
+      <div>
+        <i class="fa-solid fa-sailboat"></i>
+      </div>
+      <p>Boats</p>
+    </a>
   </div>
 
   <div class="tax-toggle">
@@ -147,14 +221,14 @@
 
 <script>
   let taxSwitch = document.getElementById("switchCheckDefault");
-  taxSwitch.addEventListener("click",()=>{
+  taxSwitch.addEventListener("click", () => {
     let taxInfo = document.getElementsByClassName("tax-info");
-    for(info of taxInfo){
-      if(info.style.display != "inline"){
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
         info.style.display = "inline";
-      }else{
+      } else {
         info.style.display = "none";
       }
     }
-  })
+  });
 </script>

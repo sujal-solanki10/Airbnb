@@ -28,7 +28,7 @@
         <div class="invalid-feedback">please enter a short description</div>
       </div>
       <div class="mb-3">
-        Original Lisitng Image <br>
+        Original Lisitng Image <br />
         <img src="<%= originalImageUrl%>" />
       </div>
 
@@ -36,6 +36,23 @@
         <label for="image" class="form-label">Upload New image</label>
         <input type="file" name="listing[image]" class="form-control" />
         <div class="invalid-feedback">Image should be valid</div>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category for listing</label>
+    <select name="listing[category]" class="form-control" required>
+      <option value="" disabled>Select a Category</option>
+      <option value="Trending" <%= listing.category === 'trending' ? 'selected' : '' %>>Trending</option>
+      <option value="Rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+      <option value="Iconic_Cities" <%= listing.category === 'iconic_cities' ? 'selected' : '' %>>Iconic Cities</option>
+      <option value="Mountains" <%= listing.category === 'mountains' ? 'selected' : '' %>>Mountains</option>
+      <option value="Castles" <%= listing.category === 'castles' ? 'selected' : '' %>>Castles</option>
+      <option value="Amazing_Pools" <%= listing.category === 'amazing_pools' ? 'selected' : '' %>>Amazing Pools</option>
+      <option value="Camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+      <option value="Farms" <%= listing.category === 'farms' ? 'selected' : '' %>>Farms</option>
+      <option value="Arctic" <%= listing.category === 'arctic' ? 'selected' : '' %>>Arctic</option>
+      <option value="Doms" <%= listing.category === 'doms' ? 'selected' : '' %>>Doms</option>
+      <option value="Boats" <%= listing.category === 'boats' ? 'selected' : '' %>>Boats</option>
+    </select>
       </div>
       <div class="row">
         <div class="mb-3 col-md-4">

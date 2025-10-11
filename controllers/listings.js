@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const categoryLabels = require("../models/categoryLabels");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken }); //object functality
@@ -40,7 +41,7 @@ module.exports.showListings = async (req, res) => {
 //create
 module.exports.createListings = async (req, res, next) => {
   console.log("[CREATE] >>> Entering createListings()");
-  console.log("Listings -> ",req.body.listing.location);
+  console.log("Listings -> ", req.body.listing.location);
   let response = await geocodingClient
     .forwardGeocode({
       query: req.body.listing.location,
@@ -48,7 +49,7 @@ module.exports.createListings = async (req, res, next) => {
     })
     .send();
 
-    // console.log("Response-> ",);
+  // console.log("Response-> ",);
 
   let url = req.file.path;
   let filename = req.file.filename;
@@ -57,10 +58,10 @@ module.exports.createListings = async (req, res, next) => {
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
 
-  newListing.geometry =  response.body.features[0].geometry;
+  newListing.geometry = response.body.features[0].geometry;
 
   let saveListing = await newListing.save();
-  console.log("ave ->",saveListing)
+  console.log("ave ->", saveListing);
   req.flash("success", "New Listing Created !");
   res.redirect("/listings");
   console.log("[CREATE] <<< Exiting createListings()");
@@ -96,8 +97,8 @@ module.exports.updateListings = async (req, res) => {
       limit: 1,
     })
     .send();
-  listing.geometry =  response.body.features[0].geometry;
-  listing.save();
+  listing.geometry = response.body.features[0].geometry;
+  await listing.save();
   listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
   if (typeof req.file !== "undefined") {
@@ -106,7 +107,6 @@ module.exports.updateListings = async (req, res) => {
     listing.image = { url, filename };
     await listing.save();
   }
-   
 
   req.flash("success", "Listing Updated !");
   res.redirect(`/listings/${id}`);
@@ -123,6 +123,44 @@ module.exports.deleteListings = async (req, res) => {
   res.redirect("/listings");
   console.log("[DELETE] <<< Exiting deleteListings()");
 };
+
+//search
+module.exports.searchListing = async (req, res) => {
+  console.log("Yes search");
+  let query = req.query.search.toLowerCase();
+  let allListings = [];
+  console.log("Found listings for category:", categoryLabels[query]);
+  // If the query is present and the category exists in categoryLabels
+  if (query && categoryLabels[query.toLowerCase()]) {
+    allListings = await Listing.find({ category: categoryLabels[query] });
+    console.log("Found listings for category:", query);
+    console.log("\n------------",allListings);
+    // If no listings are found for the category
+    if (allListings.length === 0) {
+      req.flash("error", "No listings found for the selected category!");
+      return res.redirect("/listings"); // Redirecting if no results are found
+    }
+
+  } else {
+    // If the query is not for a category, perform a general search (title or location)
+    allListings = await Listing.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { location: { $regex: query, $options: "i" } }
+      ]
+    });
+    console.log("\n------------",allListings);
+    // If no listings match the search criteria
+    if (allListings.length === 0) {
+      req.flash("error", "Listing you requested for does not exist!");
+      return res.redirect("/listings");
+    }
+  }
+
+  // If listings are found, render the page with the results
+  res.render("listings/index.ejs", { allListings });
+};
+
 
 // const Listing = require("../models/listing");
 
